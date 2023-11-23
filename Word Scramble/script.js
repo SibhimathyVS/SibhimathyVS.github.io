@@ -1,6 +1,6 @@
-var wordsArray = ['ARTICLE', 'BELIEVE', 'CAFE', 'DREAM', 'EFFORT', 'FANTASY', 'GREAT', 'HAPPY',
-    'IMAGINE', 'JUG', 'KITE', 'LIFE', 'MUSIC', 'NATURE', 'OFFICE', 'POSITIVE',
-    'QUEEN', 'REALITY', 'SHIP', 'THOUGHT', 'UMBRELLA', 'VIOLIN', 'WOLF', 'XMAS', 'YOLK', 'ZEBRA'];
+var wordsArray = ['ARTICLE', 'BEACH', 'CAFE', 'DREAM', 'EARTH', 'FRUIT', 'GREAT', 'HAT',
+    'IDEAL', 'JUG', 'KITE', 'LIFE', 'MUSIC', 'NATURE', 'OWL', 'PASTRY',
+    'QUEST', 'REALITY', 'SHIP', 'THIEF', 'UNITE', 'VENUS', 'WOLF', 'XMAS', 'YOLK', 'ZEBRA'];
 var randomIndex = 0;
 var correctWord = "";
 var scrambledWord = "";
@@ -82,7 +82,7 @@ function allowDrop(ev) {
 
 function drag(ev) {
     ev.dataTransfer.setData("text", ev.target.innerText);
-    ev.target.style.color = 'pink';
+    //ev.target.style.color = 'pink';
 }
 
 function drop(ev) {
@@ -90,21 +90,28 @@ function drop(ev) {
     var data = ev.dataTransfer.getData("text");
     var droppedLetter = data.trim();
 
-    if (ev.target.classList.contains('droppable-box')) {
+    if (ev.target.classList.contains('droppable-box') && !ev.target.classList.contains('filled')) {
         ev.target.innerText = droppedLetter;
         ev.target.classList.add('filled');
 
-        var filledBoxes = document.querySelectorAll('.droppable-box.filled');
-        if (filledBoxes.length === ev.currentTarget.children.length) {
-            var currentWord = '';
-            filledBoxes.forEach(function (box) {
-                currentWord += box.innerText;
-            });
-            checkWord(currentWord);
-        }
+        // Change color in the word bank for the dropped letter
+        var wordBankLetters = document.querySelectorAll('.draggable');
+        wordBankLetters.forEach(function (letter) {
+            if (letter.innerText === droppedLetter) {
+                letter.style.color = 'pink'; // Change to your desired color
+            }
+        });
+    }
+
+    var filledBoxes = document.querySelectorAll('.droppable-box.filled');
+    if (filledBoxes.length === ev.currentTarget.children.length) {
+        var currentWord = '';
+        filledBoxes.forEach(function (box) {
+            currentWord += box.innerText;
+        });
+        checkWord(currentWord);
     }
 }
-
 
 function scrambleWord(word) {
     return word.split('').sort(function () {
