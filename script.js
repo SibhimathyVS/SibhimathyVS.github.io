@@ -1,6 +1,6 @@
 var wordsArray = ['ARTICLE', 'BEACH', 'CAFE', 'DREAM', 'EARTH', 'FRUIT', 'GREAT', 'HAT',
-    'IDEAL', 'JUG', 'KITE', 'LIFE', 'MUSIC', 'NATURE', 'OWL', 'PASTRY',
-    'QUEST', 'REALITY', 'SHIP', 'THIEF', 'UNITE', 'VENUS', 'WOLF', 'XMAS', 'YOLK', 'ZEBRA'];
+    'IDEAL', 'JUMP', 'KITE', 'LIFE', 'MUSIC', 'NATURE', 'ORACLE', 'PASTRY',
+    'QUEST', 'REALITY', 'SCARY', 'THIEF', 'UNITE', 'VENUS', 'WINGS', 'XMAS', 'YOGHURT', 'ZEBRA'];
 var randomIndex = 0;
 var correctWord = "";
 var scrambledWord = "";
