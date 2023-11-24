@@ -1,6 +1,32 @@
-var wordsArray = ['ARTICLE', 'BEACH', 'CAFE', 'DREAM', 'EARTH', 'FRUIT', 'GREAT', 'HAT',
-    'IDEAL', 'JUMP', 'KITE', 'LIFE', 'MUSIC', 'NATURE', 'ORACLE', 'PASTRY',
-    'QUEST', 'REALITY', 'SCARY', 'THIEF', 'UNITE', 'VENUS', 'WINGS', 'XMAS', 'YOGHURT', 'ZEBRA'];
+var wordsArray = [
+    { word: 'ARTICLE', hint: 'A written composition in a newspaper or magazine' },
+    { word: 'BEACH', hint: 'Sandy shores along the ocean' },
+    { word: 'CAFE', hint: 'A place to get coffee and light meals' },
+    { word: 'DREAM', hint: 'A series of thoughts, images, and sensations occurring in a person\'s mind during sleep' },
+    { word: 'EARTH', hint: 'The third planet from the sun and the only known planet to support life' },
+    { word: 'FRUIT', hint: 'The edible part of a plant that contains seeds' },
+    { word: 'GREAT', hint: 'Of an extent, amount, or intensity considerably above average' },
+    { word: 'HAT', hint: 'A covering for the head, typically with a shaped crown and a brim' },
+    { word: 'IDEAL', hint: 'A standard of perfection or excellence' },
+    { word: 'JUMP', hint: 'To push oneself off a surface and into the air using the legs and feet' },
+    { word: 'KITE', hint: 'A toy consisting of a light frame with thin material stretched over it' },
+    { word: 'LIFE', hint: 'The condition that distinguishes organisms from inorganic objects' },
+    { word: 'MUSIC', hint: 'An art form and cultural activity whose medium is sound' },
+    { word: 'NATURE', hint: 'The phenomena of the physical world collectively' },
+    { word: 'ORACLE', hint: 'A person or agency considered to provide wise and insightful counsel or prophetic predictions' },
+    { word: 'PASTRY', hint: 'A dough of flour, fat, and water used as a base for various sweet and savory dishes' },
+    { word: 'QUEST', hint: 'A long or arduous search for something' },
+    { word: 'REALITY', hint: 'The state of things as they actually exist' },
+    { word: 'SCARY', hint: 'Causing fear or alarm' },
+    { word: 'THIEF', hint: 'A person who steals another persons property' },
+    { word: 'UNITE', hint: 'To come or bring together for a common purpose or action' },
+    { word: 'VENUS', hint: 'The second planet from the sun, named after the Roman goddess of love and beauty' },
+    { word: 'WINGS', hint: 'The structures on the body of a bird, insect, or bat that enable flight' },
+    { word: 'XMAS', hint: 'An abbreviation for a holiday celebrated on December 25th' },
+    { word: 'YOGHURT', hint: 'A dairy product created by bacterial fermentation of milk' },
+    { word: 'ZEBRA', hint: 'A large wild animal with black and white stripes native to Africa' }
+];
+
 var randomIndex = 0;
 var correctWord = "";
 var scrambledWord = "";
@@ -12,7 +38,8 @@ var currentWordIndex = 0;
 var nextButtonAdded = false;
 
 function checkWord(word) {
-    if (wordsArray.includes(word)) {
+    var foundWord = wordsArray.find(item => item.word === word.toUpperCase());
+    if (foundWord) {
         document.getElementById('message').innerText = 'Correct word!';
         if (!players.length || players[players.length - 1].wordsFound >= maxWordsPerPlayer) {
             players.push({ wordsFound: 1 });
@@ -34,12 +61,13 @@ function checkWord(word) {
             document.getElementById('message').innerText = 'You have won!';
             showFinalScores();
         }
-        wordsArray = wordsArray.filter(item => item !== word);
+        wordsArray = wordsArray.filter(item => item.word !== foundWord.word);
     } else {
         document.getElementById('message').innerText = 'Not a match, Try Again!';
         resetWord();
     }
 }
+
 
 function nextWord() {
     currentWordIndex++;
@@ -64,9 +92,12 @@ function restartGame() {
 
 function startGame() {
     randomIndex = Math.floor(Math.random() * wordsArray.length);
-    correctWord = wordsArray[randomIndex];
+    correctWord = wordsArray[randomIndex].word;
     scrambledWord = scrambleWord(correctWord);
     draggedLetters = 0;
+    var currentHint = wordsArray[randomIndex].hint;
+
+    document.getElementById('hint').innerText = `Hint: ${currentHint}`;
     document.getElementById('wordBank').style.display = 'inline-block';
     document.getElementById('dropZone').style.display = 'inline-block';
     document.getElementById('message').innerText = '';
