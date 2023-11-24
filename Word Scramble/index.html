@@ -19,10 +19,10 @@
       <div class="scoreboard" id="scoreboard" style="display: none;">
         <h3>Final Scores</h3>
         <ul id="scoreList"></ul>
+        <h3 id="score" style="display: none;">Score: 0</h3>
       </div>
-      <h3 id="score" style="display: none;">Score: 0</h3> <!-- Hide the score initially -->
-      <br>
       <button class="btn" id="startButton" onclick="startGame()">START</button>
+      <div id="hint" class="hint"></div>
       <div id="wordBank" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
       <br><br>
       <div id="dropZone" class="dropZone" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
